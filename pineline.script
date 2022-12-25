@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Dowload project from git repo') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '75b0654a-a5c8-41bf-a258-97d95d685904', url: 'https://github.com/ThangSuperMan/Jenkins-pineline-HelloWorld']]])
+            }
+        }
+        
+        stage('Run the project just downloaded') {
+            steps {
+                sh "chmod u+x ./bash.sh"
+                sh "./bash.sh"
+            }
+        }
+    }
+}
